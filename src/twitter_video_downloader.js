@@ -168,7 +168,9 @@ async function extractGraphQlMedia(id, token) {
         })
 
         const medias = tweets.filter(tweet => !!tweet?.legacy?.extended_entities?.media).map(tweet => {
-            const screenName = tweet.core.user_results.result.legacy.screen_name
+            const screenName = tweet.core?.user_results?.result?.legacy?.screen_name
+                || tweet.core?.user_results?.result?.core?.screen_name
+                || 'unknown'
             const tweetId = tweet.legacy.id_str
             const medias = tweet.legacy.extended_entities.media
 
